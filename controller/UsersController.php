@@ -25,8 +25,8 @@ class UsersController
     {
         $connexion = new ConnectDB();
         $query = $connexion->connexion()->prepare('DELETE FROM users WHERE id=?');
-        $as  =  $query->execute([$id]);
-        var_dump($as);
+        $query->execute([$id]);
+
     }
 
     public function logout(array $session):bool
