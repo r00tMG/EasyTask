@@ -7,7 +7,7 @@ require_once 'menu.php';
 $users = new UsersController();
 $listUsers = $users->displayUsers();
 #echo "<pre>";
-#var_dump($listUsers);
+#var_dump($_SERVER);
 ?>
 
 

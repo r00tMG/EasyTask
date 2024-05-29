@@ -4,24 +4,22 @@ require_once __DIR__.DIRECTORY_SEPARATOR.'..'.DIRECTORY_SEPARATOR.'model'.DIRECT
 class UsersController
 {
 
-    public function displayUsers()
+    public function displayUsers():array
     {
         $connexion = new ConnectDB();
         $query = $connexion->connexion()->prepare('select *from users');
         $query->execute();
-        $users = $query->fetchAll();
-        return $users;
+        return $query->fetchAll();
     }
 
     public function addUsers(string $username,string $password,string $photoProfile):bool
     {
         $connexion = new ConnectDB();
         $query = $connexion->connexion()->prepare('INSERT INTO users(username,password,photoProfile) values(?,?,?)');
-        $users = $query->execute([$username,password_hash($password,PASSWORD_BCRYPT,['cost'=>12]),$photoProfile]);
-        return $users;
+        return $query->execute([$username,password_hash($password,PASSWORD_BCRYPT,['cost'=>12]),$photoProfile]);
     }
 
-    public function deleteUser(int $id)
+    public function deleteUser(int $id): void
     {
         $connexion = new ConnectDB();
         $query = $connexion->connexion()->prepare('DELETE FROM users WHERE id=?');

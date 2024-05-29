@@ -5,7 +5,7 @@ if(isset($_POST['logout'])){
     $user->logout($_SESSION['users']) ;
 }
 ?>
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar w-75 m-auto navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand" href="/index.php">EasyTask</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,10 +14,17 @@ if(isset($_POST['logout'])){
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link" href="views/admin.php">Admin</a>
+                    <a class="nav-link <?php if( $_SERVER['SCRIPT_NAME']=="/index.php" || $_SERVER['SCRIPT_NAME']=="/" ){echo 'active';}?>" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="../config/signup.php">Signup</a>
+                    <?php if(isset($_SESSION['users']) && $_SESSION['users']=='admin@gmail.com' ) :?>
+                    <a class="nav-link <?php if( $_SERVER['SCRIPT_NAME']=="/views/admin.php"){echo 'active';}?>" href="/views/admin.php">Admin</a>
+                    <?php endif;?>
+                </li>
+                <li class="nav-item">
+                    <?php if( !empty($_SESSION['users']) ):?>
+                    <a class="nav-link <?php if( $_SERVER['SCRIPT_NAME']=="../config/signup.php"){echo 'active';}?>" href="../config/signup.php">Signup</a>
+                    <?php endif; ?>
                 </li>
 
                 <li class="nav-item">
@@ -26,6 +33,24 @@ if(isset($_POST['logout'])){
                     <button class="nav-link" type="submit" name="logout" >Logout</button>
                     </form>
                 </li>
+
+
+                <!--<li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Dropdown
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="#">Action</a></li>
+                        <li><a class="dropdown-item" href="#">Another action</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+                </li>-->
+            </ul>
+            <ul class="navbar-nav  mb-2 mb-lg-0">
                 <li class="nav-item">
                     <!-- Button trigger modal -->
                     <button  class="text-decoration-none btn btn-transparent" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -121,26 +146,8 @@ if(isset($_POST['logout'])){
                         </div>
                     </div>
                 </li>
-
-                <!--<li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Dropdown
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-                </li>-->
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+
         </div>
     </div>
 </nav>
