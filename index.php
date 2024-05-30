@@ -11,7 +11,7 @@ require_once 'views/menu.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'TasksController.php';
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'controller' . DIRECTORY_SEPARATOR . 'UsersController.php';
 $tasks = new TasksController();
-$listTask = $tasks->displayTask();
+$listTask = $tasks->getTaskByIdUser($_SESSION['users']['id_users']);
 
 if (isset($_POST['delete'])) {
     $id = $_POST['idTask'];
@@ -44,6 +44,7 @@ if(isset($_POST['createTask'])){
 }
 
 
+#var_dump($listUsers);
 ?>
 
 <div class="container rounded shadow m-auto p-5 mt-5 ">
@@ -53,7 +54,7 @@ if(isset($_POST['createTask'])){
             <table class="table table-bordered align-items-center mb-0">
                 <thead>
                 <tr>
-                    <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">Author</th>
+                    <!--<th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7">Author</th>-->
                     <th class="text-uppercase text-center text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Description</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Category</th>
                     <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Priority</th>
@@ -63,19 +64,18 @@ if(isset($_POST['createTask'])){
                 </thead>
                 <tbody>
                 <?php for ($i=0;$i<count($listTask);$i++): ?>
-
                 <tr>
-                        <td>
+                    <!--<td>
                             <div class="d-flex px-2 py-1">
-                                <!--<div>
+                                <div>
                                     <img src="uploads/'.$_SESSION['users']['photoProfile'].'" width="50px" height="50px" class="rounded-circle avatar avatar-sm me-3">
-                                </div>-->
+                                </div
                                 <div class="d-flex flex-column justify-content-center">
                                     <h6 class="mb-0 text-xs"><?=$listTask[$i]['id_users']?></h6>
-                                    <!--<p class="text-xs text-secondary mb-0">john@creative-tim.com</p>-->
+                                    <p class="text-xs text-secondary mb-0">john@creative-tim.com</p>
                                 </div>
                             </div>
-                        </td>
+                        </td>-->
 
 
                         <td>
@@ -110,9 +110,7 @@ if(isset($_POST['createTask'])){
                                 <svg stroke="currentColor" class="text-success" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M7,17.013l4.413-0.015l9.632-9.54c0.378-0.378,0.586-0.88,0.586-1.414s-0.208-1.036-0.586-1.414l-1.586-1.586	c-0.756-0.756-2.075-0.752-2.825-0.003L7,12.583V17.013z M18.045,4.458l1.589,1.583l-1.597,1.582l-1.586-1.585L18.045,4.458z M9,13.417l6.03-5.973l1.586,1.586l-6.029,5.971L9,15.006V13.417z"></path><path d="M5,21h14c1.103,0,2-0.897,2-2v-8.668l-2,2V19H8.158c-0.026,0-0.053,0.01-0.079,0.01c-0.033,0-0.066-0.009-0.1-0.01H5V5	h6.847l2-2H5C3.897,3,3,3.897,3,5v14C3,20.103,3.897,21,5,21z"></path></svg>
                                 </a>
                             </button>
-
                         </td>
-
                 </tr>
                 <?php endfor;?>
 

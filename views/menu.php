@@ -4,6 +4,9 @@ if(isset($_POST['logout'])){
     $user = new UsersController();
     $user->logout($_SESSION['users']) ;
 }
+$users = new UsersController();
+$listUsers = $users->displayUsers();
+#var_dump($listUsers);
 ?>
 <nav class="navbar w-75 m-auto navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
@@ -17,27 +20,22 @@ if(isset($_POST['logout'])){
                     <a class="nav-link <?php if( $_SERVER['SCRIPT_NAME']=="/index.php" || $_SERVER['SCRIPT_NAME']=="/" ){echo 'active';}?>" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <?php if(isset($_SESSION['users']) && $_SESSION['users']=='admin@gmail.com' ) :?>
+                    <?php
+                    #if(isset($_SESSION['users']) && $_SESSION['users']==='admin@gmail.com' ) :
+                        ?>
                     <a class="nav-link <?php if( $_SERVER['SCRIPT_NAME']=="/views/admin.php"){echo 'active';}?>" href="/views/admin.php">Admin</a>
-                    <?php endif;?>
+                    <?php
+                    #endif;
+                    ?>
                 </li>
                 <li class="nav-item">
-                    <?php if( !empty($_SESSION['users']) ):?>
+                    <?php if( empty($_SESSION['users']) ):?>
                     <a class="nav-link <?php if( $_SERVER['SCRIPT_NAME']=="../config/signup.php"){echo 'active';}?>" href="../config/signup.php">Signup</a>
                     <?php endif; ?>
                 </li>
-
-                <li class="nav-item">
-
-                    <form method="POST">
-                    <button class="nav-link" type="submit" name="logout" >Logout</button>
-                    </form>
-                </li>
-
-
                 <!--<li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-    Dropdown
+                                    Dropdown
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="#">Action</a></li>
@@ -51,9 +49,17 @@ if(isset($_POST['logout'])){
                 </li>-->
             </ul>
             <ul class="navbar-nav  mb-2 mb-lg-0">
+                <li class="nav-item mx-2">
+                    <form method="POST">
+                        <button class="nav-link active btn btn-outline-dark text-light" type="submit" name="logout" >Logout</button>
+                    </form>
+                </li>
                 <li class="nav-item">
+                    <?php
+                    #if( $_SESSION['users']==='admin@gmail.com' ) :
+                        ?>
                     <!-- Button trigger modal -->
-                    <button  class="text-decoration-none btn btn-transparent" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <button  class="text-decoration-none btn btn-dark text-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Create
                     </button>
 
@@ -69,10 +75,23 @@ if(isset($_POST['logout'])){
                                     <form class="row g-3 needs-validation" method="POST" novalidate>
                                         <div class="col-md-4">
 
-                                            <label for="validationCustom01" class="form-label">Author: <?= htmlentities($_SESSION['users']['username']) ?></label>
+                                            <label for="validationCustom01" class="form-label">User:</label>
                                             <input type="hidden" class="form-control" name="id_users" id="validationCustom01" value="<?= htmlentities($_SESSION['users']['id_users']) ?>" required>
                                             <div class="valid-feedback">
                                                 Looks good!
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <label for="validationCustom04" class="form-label">User</label>
+                                            <select class="form-select" name="category" id="validationCustom04" required>
+                                                <option selected disabled value="">Choose...</option>
+                                                <?php  for($i=0;$i<count($listUsers);$i++): ?>
+                                                <option><?= $listUsers[$i]['id'].':'.$listUsers[$i]['username'] ?></option>
+                                                <?php endfor; ?>
+
+                                            </select>
+                                            <div class="invalid-feedback">
+                                                Please select a valid state.
                                             </div>
                                         </div>
                                         <div class="col-md-4">
@@ -145,6 +164,9 @@ if(isset($_POST['logout'])){
                             </div>
                         </div>
                     </div>
+                    <?php
+                    #endif;
+                    ?>
                 </li>
             </ul>
 

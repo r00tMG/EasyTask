@@ -1,4 +1,5 @@
 <?php
+session_start();
 $title = "Admin EasyTask";
 require_once '../controller/UsersController.php';
 require_once 'header.php';

@@ -62,8 +62,15 @@ class TasksController
         #var_dump($state);
         return $state;
 
+    }
 
-
+    public function getTaskByIdUser(int $id):array
+    {
+        $pdo = new ConnectDB();
+        $query = $pdo->connexion()->prepare('select *from tache where id_users='.$id.'');
+         $query->execute();
+        $tasks = $query->fetchAll();
+        return $tasks;
     }
 
     
@@ -71,8 +78,9 @@ class TasksController
 
 }
 $task  = new TasksController();
-$task->update('Netoyer la maison','2','peu important','incomplète','8',62);
+#$task->update('Netoyer la maison','2','peu important','incomplète','8',62);
 #$task->createTask('sfdghgjlj','vcbgngn',4,'fngfjlgf',1);
 #var_dump($task->displayTask())
 #var_dump($task->deleteTask(1));
 // $task->getTask();
+#$task->getTaskByIdUser(60);
