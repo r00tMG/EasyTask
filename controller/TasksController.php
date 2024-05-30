@@ -86,24 +86,24 @@ class TasksController
         return $tasks;
     }
 
-    public function filterTaskByCategory(string $category,int $id):array
+    public function filterTaskByCategory(?string $category,int $id):array
     {
         $pdo = new ConnectDB();
         $query = $pdo->connexion()
             ->prepare('SELECT *FROM tache where category like ? and id_users=?');
         $query->execute([$category,$id]);
         $tasks = $query->fetchAll();
-        var_dump($tasks);
+        #var_dump($tasks);
         return $tasks;
     }
-    public function filterTaskByPriority(string $priority,int $id):array
+    public function filterTaskByPriority(?string $priority,int $id):array
     {
         $pdo = new ConnectDB();
         $query = $pdo->connexion()
             ->prepare('SELECT *FROM tache where priority like ? and id_users=?');
         $query->execute([$priority,$id]);
         $tasks = $query->fetchAll();
-        var_dump($tasks);
+        #var_dump($tasks);
         return $tasks;
     }
 
