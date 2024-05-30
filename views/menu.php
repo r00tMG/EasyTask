@@ -54,7 +54,7 @@ $listUsers = $users->displayUsers();
                         <button class="nav-link active btn btn-outline-dark text-light" type="submit" name="logout" >Logout</button>
                     </form>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item mx-2">
                     <?php
                     if(isset($_SESSION['users']) && $_SESSION['users']['username']=='admin@gmail.com' ) :
                     ?>
@@ -75,18 +75,19 @@ $listUsers = $users->displayUsers();
                                     <form class="row g-3 needs-validation" method="POST" novalidate>
                                         <div class="col-md-4">
 
-                                            <label for="validationCustom01" class="form-label">By Admin:</label>
-                                            <input type="hidden" class="form-control" name="id_users" id="validationCustom01" value="<?= htmlentities($_SESSION['users']['id_users']) ?>" required>
-                                            <div class="valid-feedback">
+                                            <label for="validationCustom01" class="form-label">By Admin :</label>
+<!--                                            <input type="hidden" class="form-control" name="id_users" id="validationCustom01" value="<?php /*= htmlentities($_SESSION['users']['username']) */?>" required>
+-->                                            <div class="valid-feedback">
                                                 Looks good!
                                             </div>
                                         </div>
+                                        <?php var_dump($_POST); ?>
                                         <div class="col-md-4">
                                             <label for="validationCustom04" class="form-label">User</label>
-                                            <select class="form-select" name="category" id="validationCustom04" required>
+                                            <select class="form-select" name="id_users" id="validationCustom04" required>
                                                 <option selected disabled value="">Choose...</option>
-                                                <?php  for($i=0;$i<count($listUsers);$i++): ?>
-                                                <option><?= $listUsers[$i]['id'].':'.$listUsers[$i]['username'] ?></option>
+                                                <?php   for($i=0;$i<count($listUsers);$i++): ?>
+                                                <option><?= $listUsers[$i]['id'] ?></option>
                                                 <?php endfor; ?>
 
                                             </select>
@@ -96,7 +97,7 @@ $listUsers = $users->displayUsers();
                                         </div>
                                         <div class="col-md-4">
                                             <label for="validationCustom02" class="form-label">Description</label>
-                                            <input type="text" class="form-control" name="description" id="validationCustom02" value="Otto" required>
+                                            <textarea type="text" class="form-control" name="description" id="validationCustom02"  required></textarea>
                                         </div>
                                         <div class="col-md-4">
                                             <label for="validationCustom04" class="form-label">Category</label>
@@ -152,9 +153,7 @@ $listUsers = $users->displayUsers();
                                             </div>
                                         </div>-->
                                         <div class="col-12">
-
                                             <button class="btn btn-primary" name="createTask" type="submit">Create</button>
-
                                         </div>
                                     </form>
                                     <!--<div class="modal-footer">
