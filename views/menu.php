@@ -21,11 +21,11 @@ $listUsers = $users->displayUsers();
                 </li>
                 <li class="nav-item">
                     <?php
-                    #if(isset($_SESSION['users']) && $_SESSION['users']==='admin@gmail.com' ) :
+                    if(isset($_SESSION['users']) && $_SESSION['users']['username']==='admin@gmail.com' ) :
                         ?>
                     <a class="nav-link <?php if( $_SERVER['SCRIPT_NAME']=="/views/admin.php"){echo 'active';}?>" href="/views/admin.php">Admin</a>
                     <?php
-                    #endif;
+                    endif;
                     ?>
                 </li>
                 <li class="nav-item">
@@ -56,8 +56,8 @@ $listUsers = $users->displayUsers();
                 </li>
                 <li class="nav-item">
                     <?php
-                    #if( $_SESSION['users']==='admin@gmail.com' ) :
-                        ?>
+                    if(isset($_SESSION['users']) && $_SESSION['users']['username']=='admin@gmail.com' ) :
+                    ?>
                     <!-- Button trigger modal -->
                     <button  class="text-decoration-none btn btn-dark text-light" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         Create
@@ -75,7 +75,7 @@ $listUsers = $users->displayUsers();
                                     <form class="row g-3 needs-validation" method="POST" novalidate>
                                         <div class="col-md-4">
 
-                                            <label for="validationCustom01" class="form-label">User:</label>
+                                            <label for="validationCustom01" class="form-label">By Admin:</label>
                                             <input type="hidden" class="form-control" name="id_users" id="validationCustom01" value="<?= htmlentities($_SESSION['users']['id_users']) ?>" required>
                                             <div class="valid-feedback">
                                                 Looks good!
@@ -152,7 +152,9 @@ $listUsers = $users->displayUsers();
                                             </div>
                                         </div>-->
                                         <div class="col-12">
+
                                             <button class="btn btn-primary" name="createTask" type="submit">Create</button>
+
                                         </div>
                                     </form>
                                     <!--<div class="modal-footer">
@@ -165,7 +167,7 @@ $listUsers = $users->displayUsers();
                         </div>
                     </div>
                     <?php
-                    #endif;
+                    endif;
                     ?>
                 </li>
             </ul>

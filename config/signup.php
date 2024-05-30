@@ -42,8 +42,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 #$newfilename = __DIR__.DIRECTORY_SEPARATOR.''.$destination.DIRECTORY_SEPARATOR.$newName.'.'.$extension.'';
 
                 $newfilename = dirname(__DIR__).DIRECTORY_SEPARATOR.'config/'.$destination.DIRECTORY_SEPARATOR.md5(uniqid()).'.'.$extension.' ';
-                var_dump($newfilename);
-                var_dump($file['tmp_name']);
+                ##var_dump($newfilename);
+                ##var_dump($file['tmp_name']);
 
                 if (!move_uploaded_file($file['tmp_name'],$newfilename)){
                     echo '<script>alert("ton fichier n\'a pas été uploader")</script>';
