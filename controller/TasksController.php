@@ -73,6 +73,40 @@ class TasksController
         return $tasks;
     }
 
+
+    public function searchTask(string $serchTerme,int $id):array
+    {
+        $pdo = new ConnectDB();
+        $terme = "%$serchTerme%";
+        $query= $pdo->connexion()
+            ->prepare('SELECT *FROM tache where description like ? and  id_users=?');
+        $query->execute([$terme,$id]);
+        $tasks = $query->fetchAll();
+        #var_dump($tasks);
+        return $tasks;
+    }
+
+    public function filterTaskByCategory(string $category,int $id):array
+    {
+        $pdo = new ConnectDB();
+        $query = $pdo->connexion()
+            ->prepare('SELECT *FROM tache where category like ? and id_users=?');
+        $query->execute([$category,$id]);
+        $tasks = $query->fetchAll();
+        var_dump($tasks);
+        return $tasks;
+    }
+    public function filterTaskByPriority(string $priority,int $id):array
+    {
+        $pdo = new ConnectDB();
+        $query = $pdo->connexion()
+            ->prepare('SELECT *FROM tache where priority like ? and id_users=?');
+        $query->execute([$priority,$id]);
+        $tasks = $query->fetchAll();
+        var_dump($tasks);
+        return $tasks;
+    }
+
     
 
 
@@ -84,3 +118,4 @@ $task  = new TasksController();
 #var_dump($task->deleteTask(1));
 // $task->getTask();
 #$task->getTaskByIdUser(60);
+#$task->filterTaskByPriority('peu important',8);
