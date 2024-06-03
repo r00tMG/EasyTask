@@ -51,6 +51,8 @@ if ( isset($_POST['priorityFilter']) ){
     $taskByPriority = $tasks->filterTaskByPriority( $_POST['priorityFilter'], $_SESSION['users']['id_users'] );
 #    var_dump($taskByPriority);
 }
+#echo "<pre>";
+#var_dump($listTaskAdmin);
 ?>
 
 <div class="container rounded shadow m-auto p-5 mt-5 ">
@@ -103,6 +105,7 @@ if ( isset($_POST['priorityFilter']) ){
         </div>
     </div>
 <?php endif;?>
+
 
     <h2 class="text-center text-secondary text-xxs font-weight-bolder opacity-7"> Liste des tâches </h2>
     <div class="card">
@@ -302,8 +305,34 @@ if ( isset($_POST['priorityFilter']) ){
                         <td>
                             <p class="text-xs text-center font-weight-bold mb-0"><?= $listTask[$i]['priority'] ;?></p>
                         </td>
+
                         <td>
-                            <p class="text-xs text-center font-weight-bold mb-0"><?= $listTask[$i]['statut'] ;?></p>
+                            <form method="POST">
+                                <input type="hidden" name="is_complete" value="<?= htmlentities($listTask[$i]['is_complete']) ?>">
+                                <input type="hidden" name="idTask" value="<?= htmlentities($listTask[$i]['idTask']) ?>">
+                                <button type="submit" name="status" class="btn btn-primary">
+                                    <?= $listTask[$i]['is_complete'] ==0 ? 'Incomplete' : 'Complete' ?>
+                                </button>
+                            </form>
+                            <span>
+                                <?php
+                                #$listTask[$i]['is_complete'] ? '(Complete)' : '(Incomplete)';
+                                 ?>
+                            </span>
+
+                            <?php
+                            if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['status']) && isset($_POST['idTask']) ) {
+                                $idTask = $_POST['idTask'];
+                                $currentStatus = $_POST['is_complete'];
+                                $newStatus = $currentStatus ? 0 : 1;
+                                $task->isComplete($newStatus, $idTask);
+
+                                // Redirige pour éviter la soumission multiple du formulaire
+                                #header('Location: ' . $_SERVER['REQUEST_URI']);
+                                #exit();
+                            }
+                               ?>
+
                         </td>
                             <?php if($_SESSION['users']['username'] == 'admin@gmail.com'): ?>
                         <td>
@@ -338,4 +367,5 @@ if ( isset($_POST['priorityFilter']) ){
 
 
 <?php
-require_once 'views/footer.php';
+require_once 'views/footer.php'
+?>

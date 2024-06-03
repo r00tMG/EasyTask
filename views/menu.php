@@ -81,7 +81,7 @@ $listUsers = $users->displayUsers();
                                                 Looks good!
                                             </div>
                                         </div>
-                                        <?php var_dump($_POST); ?>
+
                                         <div class="col-md-4">
                                             <label for="validationCustom04" class="form-label">User</label>
                                             <select class="form-select" name="id_users" id="validationCustom04" required>

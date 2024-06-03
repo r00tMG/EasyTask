@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 ?>
 
 <div class="container w-50 bg-light shadow rounded mt-5 p-5  ">
-    <h1 class="text-center">Inscription</h1>
+    <h1 class="text-center">Connexion</h1>
     <?php  if (isset($error)): ?>
         <div class="alert alert-success">
             <?= $error ?>

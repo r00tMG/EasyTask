@@ -5,7 +5,15 @@ class TasksController
 {
 
 
-    public function createTask(string $description, string $category, string $priority,string $statut,int $id_users):bool
+    /**
+     * @param string $description
+     * @param string $category
+     * @param string $priority
+     * @param string $statut
+     * @param int $id_users
+     * @return bool
+     */
+    public function createTask(string $description, string $category, string $priority, string $statut, int $id_users):bool
     {
         $connection =  new ConnectDB();
         $query = $connection->connexion()
@@ -20,6 +28,9 @@ class TasksController
         #var_dump($task);
     }
 
+    /**
+     * @return array
+     */
     public function displayTask():array
     {
         $connexion = new ConnectDB();
@@ -30,7 +41,12 @@ class TasksController
         return $tasks;
 
     }
-    public function deleteTask(int $id)
+
+    /**
+     * @param int $id
+     * @return void
+     */
+    public function deleteTask(int $id):void
     {
 
         $connexion = new ConnectDB();
@@ -38,10 +54,12 @@ class TasksController
             ->connexion()
             ->prepare('DELETE FROM tache where idTask=?');
         $query->execute([$id]);
-
-
     }
 
+    /**
+     * @param int $id
+     * @return array
+     */
     public function getTaskById(int $id):array
     {
         $pdo = new ConnectDB();
@@ -52,7 +70,16 @@ class TasksController
         return $task;
     }
 
-    public function update(string $description,string $category,string $priority,string $statut,int $id_users,int $id):bool
+    /**
+     * @param string $description
+     * @param string $category
+     * @param string $priority
+     * @param string $statut
+     * @param int $id_users
+     * @param int $id
+     * @return bool
+     */
+    public function update(string $description, string $category, string $priority, string $statut, int $id_users, int $id):bool
     {
 
         $pdo = new ConnectDB();
@@ -64,6 +91,10 @@ class TasksController
 
     }
 
+    /**
+     * @param int $id
+     * @return array
+     */
     public function getTaskByIdUser(int $id):array
     {
         $pdo = new ConnectDB();
@@ -74,7 +105,12 @@ class TasksController
     }
 
 
-    public function searchTask(string $serchTerme,int $id):array
+    /**
+     * @param string $serchTerme
+     * @param int $id
+     * @return array
+     */
+    public function searchTask(string $serchTerme, int $id):array
     {
         $pdo = new ConnectDB();
         $terme = "%$serchTerme%";
@@ -86,7 +122,12 @@ class TasksController
         return $tasks;
     }
 
-    public function filterTaskByCategory(?string $category,int $id):array
+    /**
+     * @param string|null $category
+     * @param int $id
+     * @return array
+     */
+    public function filterTaskByCategory(?string $category, int $id):array
     {
         $pdo = new ConnectDB();
         $query = $pdo->connexion()
@@ -96,7 +137,13 @@ class TasksController
         #var_dump($tasks);
         return $tasks;
     }
-    public function filterTaskByPriority(?string $priority,int $id):array
+
+    /**
+     * @param string|null $priority
+     * @param int $id
+     * @return array
+     */
+    public function filterTaskByPriority(?string $priority, int $id):array
     {
         $pdo = new ConnectDB();
         $query = $pdo->connexion()
@@ -106,8 +153,20 @@ class TasksController
         #var_dump($tasks);
         return $tasks;
     }
+    public function isComplete(bool $is_complete, int $id):bool
+    {
+        $pdo = new ConnectDB();
+        $taskById = $this->getTaskById($id);
+        $query = $pdo->connexion()->prepare('UPDATE tache SET is_complete =?  WHERE idTask =? ');
 
-    
+        $task = $query->execute([(int)$is_complete,$id]);
+        return $task;
+        #var_dump($taskById);
+        #return $task;
+    }
+
+
+
 
 
 }
@@ -119,3 +178,7 @@ $task  = new TasksController();
 // $task->getTask();
 #$task->getTaskByIdUser(60);
 #$task->filterTaskByPriority('peu important',8);
+$task->isComplete(0,62);
+
+
+

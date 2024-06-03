@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $users = new UsersController();
         $success = null;
 
-        var_dump(dirname(__DIR__));
+        //var_dump(dirname(__DIR__));
         if(isset($_FILES['photoProfile']) && $_FILES['photoProfile']['error'] === 0){
             $file = $_FILES['photoProfile'];
 
